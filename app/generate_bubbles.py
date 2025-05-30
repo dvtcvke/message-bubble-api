@@ -1,17 +1,20 @@
 from PIL import Image, ImageDraw, ImageFont
 import textwrap
 
-def create_chat_image(text: str, output_path="chat_output.jpg"):
+def create_chat_image(text: str, output_path="chat_output.png"):
+    # ⚙️ Paramètres de résolution
+    scale = 2  # facteur d’agrandissement (x2 pour haute résolution)
+
     # Couleurs et styles
-    outer_padding = 30  # marge autour de la bulle (dans l'image)
-    inner_padding = 30  # marge entre le texte et le bord de la bulle
-    line_spacing = 10
-    font_size = 36
+    outer_padding = 30 * scale      # marge autour de la bulle (dans l'image)
+    inner_padding = 30 * scale      # marge entre le texte et le bord de la bulle
+    line_spacing = 10 * scale
+    font_size = 36 * scale
 
     bg_color = (255, 255, 255)        # fond de l'image (blanc)
-    bubble_color = (230, 235, 239)    # couleur de la bulle #E6EBEF
+    bubble_color = (230, 235, 239)    # #E6EBEF
     text_color = (0, 0, 0)            # texte noir
-    radius = 40                       # coins arrondis
+    radius = 40 * scale               # coins arrondis
 
     # Chargement police
     try:
@@ -64,6 +67,6 @@ def create_chat_image(text: str, output_path="chat_output.jpg"):
     # Collage de la bulle sur fond
     image.paste(bubble, (outer_padding, outer_padding), mask)
 
-    # Sauvegarde
-    image.save(output_path, "JPEG")
+    # ✅ Sauvegarde en PNG haute qualité
+    image.save(output_path, "PNG")
     return output_path
